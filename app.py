@@ -24,10 +24,11 @@ def webhook():
 		
 	if 'weather' in message['text'].lower() and not sender_is_bot(message):
 		try:
-		    city = re.findall(':(.*?)$',message['text'])[0].strip()
-		    getWeather(city)
+			city = re.findall(':(.*?)$',message['text'])[0].strip()
+			reply(city)
+			getWeather(city)
 		except:
-		    reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
+			reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
 
 	return "ok", 200
 
