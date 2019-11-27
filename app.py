@@ -20,6 +20,13 @@ def webhook():
 
 	if 'groot' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
 		reply('I am Groot.')
+		
+	if 'weather' in message['text'].lower() and not sender_is_bot(message):
+		try:
+		    city = re.findall(':(.*?)$',message['text'])[0].strip()
+		    getWeather(city)
+		except:
+		    reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
 
 	return "ok", 200
 
@@ -66,6 +73,35 @@ def upload_image_to_groupme(imgURL):
 		imageurl = r.json()['payload']['url']
 		os.remove(filename)
 		return imageurl
+
+	
+def getWeather(city):
+    api_key = "cfeaa4d330ea4fed547004a561111a2e"
+    base_url = "http://api.openweathermap.org/data/2.5/weather?"
+    city_name = city
+    complete_url = base_url + "appid=" + api_key + "&q=" + city_name 
+    response = requests.get(complete_url) 
+    x = response.json() 
+
+    if x["cod"] != "404": 
+        y = x["main"] 
+        current_temperature = y["temp"]
+        current_temperature = (int(current_temperature) - 273.15) * 9/5 + 32
+        current_pressure = y["pressure"] 
+        current_humidiy = y["humidity"] 
+        z = x["weather"] 
+        weather_description = z[0]["description"] 
+        # print following values 
+        reply("Temperature: " +
+                        str(round(current_temperature,2)) + 
+              "\nHumidity: " +
+                        str(current_humidiy) +
+              "\nDescription: " +
+                        str(weather_description)) 
+        #reply(msg)
+  
+    else: 
+        reply(" City Not Found ")
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
