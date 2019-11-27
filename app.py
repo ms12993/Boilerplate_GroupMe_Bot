@@ -4,6 +4,7 @@
 # IMPORTS
 import os
 import json
+import requests
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
@@ -25,11 +26,10 @@ def webhook():
 	if 'weather' in message['text'].lower() and not sender_is_bot(message):
 		try:
 			city = re.findall(':(.*?)$',message['text'])[0].strip()
-			reply(city)
-			getWeather(city)
 		except:
+			city = 'na'
 			reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
-
+		getWeather(city)
 	return "ok", 200
 
 ################################################################################
