@@ -7,6 +7,7 @@ import json
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
+import re
 
 app = Flask(__name__)
 bot_id = os.getenv('GROUPME_BOT_ID')
