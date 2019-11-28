@@ -20,6 +20,7 @@ bot_id = os.getenv('GROUPME_BOT_ID')
 def webhook():
 	# 'message' is an object that represents a single GroupMe message.
 	message = request.get_json()
+	reply(message)
 	
 	if message['text'][:5] == '!ogre': 
 
