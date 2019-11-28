@@ -45,6 +45,9 @@ def webhook():
 	
 		if 'coin' in message['text'].lower() and not sender_is_bot(message):
 			coin()
+	
+		if '8ball' in message['text'].lower() and not sender_is_bot(message):
+			eightBall()
 			
 		if 'help' in message['text'].lower() and not sender_is_bot(message):
 			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\nFor more functions, please venmo Matt-Sarver with request attached')
@@ -146,6 +149,37 @@ def coin():
     else:
         coin = 'Tails'
     reply(coin)
+
+def eightBall():
+    eightBall = random.randint(1,9)
+    if eightBall == 1:
+        answer = "It is certain"
+    
+    elif eightBall == 2:
+        answer = "Outlook good"
+    
+    elif eightBall == 3:
+        answer = "You may rely on it"
+    
+    elif eightBall == 4:
+        answer = "Ask again later"
+    
+    elif eightBall == 5:
+        answer = "Concentrate and ask again"
+    
+    elif eightBall == 6:
+        answer = "Reply hazy, try again"
+    
+    elif eightBall == 7:
+        answer = "My reply is no"
+    
+    elif eightBall == 8:
+        answer = "My sources say no"
+        
+    elif eightBall == 9:
+        answer = "Steve Smells"
+        
+    reply(answer)
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
