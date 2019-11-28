@@ -20,6 +20,10 @@ bot_id = os.getenv('GROUPME_BOT_ID')
 def webhook():
 	# 'message' is an object that represents a single GroupMe message.
 	message = request.get_json()
+	try:
+		tagged = message['user_ids']
+	except:
+		tagged = []
 	if 1+1 == 2 and not sender_is_bot(message):
 		reply(message)
 	
@@ -38,6 +42,10 @@ def webhook():
 	
 		if 'coin' in message['text'].lower() and not sender_is_bot(message):
 			coin()
+			
+		if len(tagged) > 0:
+			if '8712430' in tagged:
+				reply('Thanks for reaching out to Emily')
 	return "ok", 200
 
 ################################################################################
