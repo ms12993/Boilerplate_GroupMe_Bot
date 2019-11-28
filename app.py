@@ -46,9 +46,16 @@ def webhook():
 	if len(tagged) > 0:
 		if '8712430' in tagged:
 			reply('Thanks for reaching out to Emily')
-	if message['system'] == True:# and 'added' in message['text']:
-		name = re.findall('added (.*?) to the',message['text'])[0].strip()
-		reply('Welcome to the group, ' + name)
+	if message['system'] == True:
+		if 'added' in message['text'].lower():
+			name = re.findall('added (.*?) to the',message['text'])[0].strip()
+			print(name)
+			string = 'Welcome to the group, ' + name
+			reply(string)
+		if 'removed' in message['text'].lower():
+			name = re.findall('removed (.*?) from the',message['text'])[0].strip()
+			string = 'Peace from the group, ' + name
+			reply(string)
 	return "ok", 200
 
 ################################################################################
