@@ -21,7 +21,7 @@ def webhook():
 	# 'message' is an object that represents a single GroupMe message.
 	message = request.get_json()
 	try:
-		tagged = message['atachments'][0]['user_ids']
+		tagged = message['attachments'][0]['user_ids']
 	except:
 		tagged = []
 	if 1+1 == 2 and not sender_is_bot(message):
@@ -46,7 +46,7 @@ def webhook():
 	if len(tagged) > 0:
 		if '8712430' in tagged:
 			reply('Thanks for reaching out to Emily')
-	if message['system'] == 'True' and 'added' in message['text']:
+	if message['system'] == True# and 'added' in message['text']:
 		name = re.findall('added (.*?) to the',message['text'])[0].strip()
 		reply('Welcome to the group, ' + name)
 	return "ok", 200
