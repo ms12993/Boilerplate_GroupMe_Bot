@@ -44,17 +44,18 @@ def webhook():
 			coin()
 			
 	if len(tagged) > 0:
-		if '8712430' in tagged:
-			reply('Thanks for reaching out to Emily')
+		if '13831863' in tagged:
+			reply('Thanks for reaching out to Steve. Please expect a reply in 12-72 hours')
 	if message['system'] == True:
 		if 'added' in message['text'].lower():
 			name = re.findall('added (.*?) to the',message['text'])[0].strip()
 			print(name)
-			string = 'Welcome to the group, ' + name
+			string = 'Welcome to the group, ' + name + ' please tread lightly'
 			reply(string)
 		if 'removed' in message['text'].lower():
 			name = re.findall('removed (.*?) from the',message['text'])[0].strip()
-			string = 'Peace from the group, ' + name
+			string = 'lol get rekt, ' + name + '!'
+			print(string)
 			reply(string)
 	return "ok", 200
 
