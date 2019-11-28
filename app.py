@@ -20,7 +20,8 @@ bot_id = os.getenv('GROUPME_BOT_ID')
 def webhook():
 	# 'message' is an object that represents a single GroupMe message.
 	message = request.get_json()
-	reply(message)
+	if 1+1 == 2 and not sender_is_bot(message):
+		reply(message)
 	
 	if message['text'][:5] == '!ogre': 
 
@@ -35,7 +36,7 @@ def webhook():
 				#city = 'na'
 				reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
 	
-		if 'coin' in message['text'].lower():
+		if 'coin' in message['text'].lower() and not sender_is_bot(message):
 			coin()
 	return "ok", 200
 
