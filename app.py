@@ -43,9 +43,12 @@ def webhook():
 		if 'coin' in message['text'].lower() and not sender_is_bot(message):
 			coin()
 			
-		if len(tagged) > 0:
-			if '8712430' in tagged:
-				reply('Thanks for reaching out to Emily')
+	if len(tagged) > 0:
+		if '8712430' in tagged:
+			reply('Thanks for reaching out to Emily')
+	if message['system'] == 'True' and 'Removed' in message['text']:
+		name = re.findall('added (.*?) to the',message['text'])[0].strip()
+		reply('Welcome to the group, ' + name)
 	return "ok", 200
 
 ################################################################################
