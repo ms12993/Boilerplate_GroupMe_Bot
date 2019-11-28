@@ -9,6 +9,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 from flask import Flask, request
 import re
+import random
 
 app = Flask(__name__)
 bot_id = os.getenv('GROUPME_BOT_ID')
@@ -19,18 +20,22 @@ bot_id = os.getenv('GROUPME_BOT_ID')
 def webhook():
 	# 'message' is an object that represents a single GroupMe message.
 	message = request.get_json()
+	
+	if message['text'][:5] == '!ogre': 
 
-	if 'groot' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
-		reply('I am Groot.')
-		
-	if 'weather' in message['text'].lower() and not sender_is_bot(message):
-		try:
-			city = re.findall(':(.*?)$',message['text'])[0].strip()
-			getWeather(city)
-		except:
-			#city = 'na'
-			reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
-		
+		if 'groot' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
+			reply('I am Groot.')
+
+		if 'weather' in message['text'].lower() and not sender_is_bot(message):
+			try:
+				city = re.findall(':(.*?)$',message['text'])[0].strip()
+				getWeather(city)
+			except:
+				#city = 'na'
+				reply('Cannot Find a city in your message. Please try again in the format "Weather: City" \n Dumbass :)')
+	
+		if 'coin' in message['text'].lower():
+			coin()
 	return "ok", 200
 
 ################################################################################
@@ -105,6 +110,15 @@ def getWeather(city):
   
     else: 
         reply(" City Not Found ")
+
+	
+def coin():
+    flip = random.randint(0,1)
+    if flip == 0:
+        coin = 'Heads'
+    else:
+        coin = 'Tails'
+    reply(coin)
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
