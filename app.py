@@ -27,7 +27,7 @@ def webhook():
 	#if 1+1 == 2 and not sender_is_bot(message):
 		#reply(message)
 		
-	if 'ogre' in message['text']:
+	if 'ogre' in message['text'].lower() and not sender_is_bot(message):
 		reply('GET OUT ME SWAMP')
 	
 	if message['text'][:5] == '!ogre': 
