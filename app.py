@@ -24,8 +24,8 @@ def webhook():
 		tagged = message['attachments'][0]['user_ids']
 	except:
 		tagged = []
-	if 1+1 == 2 and not sender_is_bot(message):
-		reply(message)
+	#if 1+1 == 2 and not sender_is_bot(message):
+		#reply(message)
 	
 	if message['text'][:5] == '!ogre': 
 
@@ -42,6 +42,9 @@ def webhook():
 	
 		if 'coin' in message['text'].lower() and not sender_is_bot(message):
 			coin()
+			
+		if 'help' in message['text'].lower() and not sender_is_bot(message):
+			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\nFor more functions, please venmo Matt-Sarver with request attached'
 			
 	if len(tagged) > 0:
 		if '13831863' in tagged:
