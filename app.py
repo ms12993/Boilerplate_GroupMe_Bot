@@ -229,9 +229,9 @@ def eightBall():
     reply(answer)
 
 def newGame(tagged):
-    for i in range(len(data['members'])):
-	members[data['members'][i]['user_id']] = {}
-	members[data['members'][i]['user_id']]['name'] = data['members'][i]['nickname'] 
+	for i in range(len(data['members'])):
+		members[data['members'][i]['user_id']] = {}
+		members[data['members'][i]['user_id']]['name'] = data['members'][i]['nickname'] 
     pos = 0
     string = ''
     for i in range(len(tagged)):
