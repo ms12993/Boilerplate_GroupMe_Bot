@@ -74,7 +74,7 @@ def webhook():
 					reply(message)
 					over = gameOver()
 					if len(over) > 0:
-					reply(over)
+						reply(over)
 				else:
 					reply('not your turn. ' + name + ' is up!')
 			else:
