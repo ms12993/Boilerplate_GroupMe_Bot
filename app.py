@@ -232,20 +232,20 @@ def newGame(tagged):
 	for i in range(len(data['members'])):
 		members[data['members'][i]['user_id']] = {}
 		members[data['members'][i]['user_id']]['name'] = data['members'][i]['nickname'] 
-    pos = 0
-    string = ''
-    for i in range(len(tagged)):
-        lcr['Players'][i] = {}
-        lcr['Players'][i]['userId'] = tagged[i]
-        lcr['Players'][i]['position'] = pos
-        lcr['Players'][i]['chips'] = 3
-        lcr['Players'][i]['turn'] = 0
-        lcr['Players'][i]['name'] = members[str(tagged[i])]['name']
-        pos += 1
-    lcr['Players'][0]['turn'] = 1
-    lcr['Center'] = 0
-    lcr['Over'] = 0
-    string = 'New game has been started with ' + str(len(tagged)) + ' people ' + members[str(tagged[0])]['name'] + ' is up first!'
+	pos = 0
+	string = ''
+	for i in range(len(tagged)):
+		lcr['Players'][i] = {}
+		lcr['Players'][i]['userId'] = tagged[i]
+		lcr['Players'][i]['position'] = pos
+		lcr['Players'][i]['chips'] = 3
+		lcr['Players'][i]['turn'] = 0
+		lcr['Players'][i]['name'] = members[str(tagged[i])]['name']
+		pos += 1
+	lcr['Players'][0]['turn'] = 1
+	lcr['Center'] = 0
+	lcr['Over'] = 0
+	string = 'New game has been started with ' + str(len(tagged)) + ' people ' + members[str(tagged[0])]['name'] + ' is up first!'
     return string
 
 def roll(num):
