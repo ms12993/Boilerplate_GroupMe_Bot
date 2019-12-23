@@ -15,7 +15,7 @@ app = Flask(__name__)
 bot_id = os.getenv('GROUPME_BOT_ID')
 
 # get list of groups
-url = 'https://api.groupme.com/v3/groups/12804350token='#56351881?token='
+url = 'https://api.groupme.com/v3/groups/12804350?token='#56351881?token='
 token = 'Mq0l3yrFmlJ6n7Gc1wopPT00Hn2GEQWAZlkejpvP'
 url = url + token
 
