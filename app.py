@@ -80,7 +80,7 @@ def webhook():
 			else:
 				reply('no current game active. please use new game command')
 				
-		if 'lcr/new game' message['text'].lower() and not sender_is_bot(message):
+		if 'lcr/new game' in message['text'].lower() and not sender_is_bot(message):
 			message = newGame(tagged)
 			reply(message)
         
