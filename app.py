@@ -14,6 +14,13 @@ import random
 app = Flask(__name__)
 bot_id = os.getenv('GROUPME_BOT_ID')
 
+lcr = {
+    'Players': {   
+    },
+    'Center':0,
+    'Over':0   
+}
+
 # Called whenever the app's callback URL receives a POST request
 # That'll happen every time a message is sent in the group
 @app.route('/', methods=['POST'])
@@ -52,6 +59,25 @@ def webhook():
 		if 'help' in message['text'].lower() and not sender_is_bot(message):
 			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\nFor more functions, please venmo Matt-Sarver with request attached')
 			
+		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
+			userId, name = turn()
+			if lcr['Over'] == 0:
+			    if str(message['sender_id']) == userId:
+				pos = position(str(message['sender_id']))
+				die = roll(lcr['Players'][pos]['chips'])
+				print(die)
+				ret = distribute(die, pos)
+				score = scoreboard()
+				print(score)
+				print(ret)
+				over = gameOver()
+				if len(over) > 0:
+				    reply(over)
+			    else:
+				reply('not your turn. ' + name + ' is up!')
+			else:
+			    reply('no current game active. please use new game command')
+        
 	if len(tagged) > 0:
 		if '13831863' in tagged:
 			reply('Thanks for reaching out to Steve. Please expect a reply in 12-72 hours')
@@ -180,6 +206,114 @@ def eightBall():
         answer = "Steve Smells"
         
     reply(answer)
+
+def newGame(tagged):
+    pos = 0
+    for i in range(len(tagged)):
+        lcr['Players'][i] = {}
+        lcr['Players'][i]['userId'] = tagged[i]
+        lcr['Players'][i]['position'] = pos
+        lcr['Players'][i]['chips'] = 3
+        lcr['Players'][i]['turn'] = 0
+        lcr['Players'][i]['name'] = members[str(tagged[i])]['name']
+        pos += 1
+    lcr['Players'][0]['turn'] = 1
+    lcr['Center'] = 0
+    lcr['Over'] = 0
+    
+    return lcr
+
+def roll(num):
+    dice = ['-','-','-','Left','Center','Right']
+    if num > 3:
+        num = 3
+    die = []
+    for i in range(0,num):
+        die.append(random.choice(dice))
+    return die
+
+def distribute(die, pos):
+    message = ''
+    for i in range(len(die)):
+        if die[i] == 'Right':
+            lcr['Players'][pos]['chips'] -= 1
+            try:
+                lcr['Players'][pos + 1]['chips'] += 1
+                #message += lcr['Players'][pos + 1]['name'] + ' + 1: ' + str(lcr['Players'][pos + 1]['chips']) + '\n'
+            except:
+                lcr['Players'][0]['chips'] += 1
+                #message += lcr['Players'][0]['name'] + ' + 1: ' + str(lcr['Players'][0]['chips']) + '\n'
+
+        if die[i] == 'Left':
+            lcr['Players'][pos]['chips'] -= 1
+            try:
+                lcr['Players'][pos - 1]['chips'] += 1
+                #message += lcr['Players'][pos - 1]['name'] + ' + 1: ' + str(lcr['Players'][pos - 1]['chips']) + '\n'
+            except:
+                lcr['Players'][len(lcr['Players'])-1]['chips'] += 1
+                #message += lcr['Players'][len(lcr['Players'])-1]['name'] + ' + 1: ' + str(lcr['Players'][len(lcr['Players'])-1]['chips']) + '\n'
+
+        if die[i] == 'Center':
+            lcr['Players'][pos]['chips'] -= 1
+            lcr['Center'] += 1
+            #message += 'Center + 1: ' + str(lcr['Center']) + '\n'
+    
+    
+    lcr['Players'][pos]['turn'] = 0
+    nextUp = playerUp(lcr['Players'], pos)
+    message += nextUp + ' is now up!'
+    return message
+
+def starting_with(arr, start_index):
+     # use xrange instead of range in python 2
+    for i in range(start_index, len(arr)):
+        yield arr[i]
+    for i in range(start_index):
+        yield arr[i]
+
+def playerUp(list, pos):
+    player = ''
+    for value in starting_with(list, pos + 1):
+        if player == '':
+            if value['chips'] > 0:
+                player = value['name']
+                value['turn'] = 1
+                
+    return player
+
+def scoreboard():
+    score = ''
+    for i in range(len(lcr['Players'])):
+        score += lcr['Players'][i]['name'] + ': ' + str(lcr['Players'][i]['chips']) + '\n'
+    return score
+
+def gameOver():
+    players = []
+    for x in lcr['Players']:
+        if lcr['Players'][x]['chips'] != 0:
+            players.append(lcr['Players'][x]['name'])
+    if len(players) == 1:
+        #print(str(players[0]) + ' has won the game!')
+        lcr['Over'] = 1
+        message = 'Game Over. ' + str(players[0]) + ' has won the game!'
+    else:
+        message = ''
+    return message
+
+def turn():
+    for i in range(len(lcr['Players'])):
+        if lcr['Players'][i]['turn'] == 1:
+            
+            return lcr['Players'][i]['userId'], lcr['Players'][i]['name']
+	
+def position(sender_id):
+    pos = 0
+    for i in range(len(lcr['Players'])):
+        if sender_id == lcr['Players'][i]['userId']:
+            pos = i
+    return pos
+
+
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
