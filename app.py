@@ -75,6 +75,7 @@ def webhook():
 			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\nFor more functions, please venmo Matt-Sarver with request attached')
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
+			lcr = json.loads(os.getenv('lcr'))
 			if lcr['Over'] == 0:
 				userId, name = turn(lcr)
 				if str(message['sender_id']) == userId:
@@ -261,6 +262,7 @@ def newGame(tagged):
 	lcr['Center'] = 0
 	lcr['Over'] = 0
 	string = 'New game has been started with ' + str(len(tagged)) + ' people ' + members[str(tagged[0])]['name'] + ' is up first!'
+	os.environ["lcr"] = json.dumps(lcr)
 	return lcr, string
 
 def roll(num):
