@@ -229,6 +229,14 @@ def eightBall():
     reply(answer)
 
 def newGame(tagged):
+	url = 'https://api.groupme.com/v3/groups/12804350?token='#56351881?token='
+	token = 'Mq0l3yrFmlJ6n7Gc1wopPT00Hn2GEQWAZlkejpvP'
+	url = url + token
+
+	response = requests.get(url)
+	data = json.loads(response.text)
+	data = data['response']
+
 	for i in range(len(data['members'])):
 		members[data['members'][i]['user_id']] = {}
 		members[data['members'][i]['user_id']]['name'] = data['members'][i]['nickname'] 
