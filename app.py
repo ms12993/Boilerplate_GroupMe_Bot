@@ -18,7 +18,7 @@ lcr = {
     'Players': {   
     },
     'Center':0,
-    'Over':0   
+    'Over':1   
 }
 
 # Called whenever the app's callback URL receives a POST request
@@ -60,8 +60,8 @@ def webhook():
 			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\nFor more functions, please venmo Matt-Sarver with request attached')
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
-			userId, name = turn()
 			if lcr['Over'] == 0:
+				userId, name = turn()
 				if str(message['sender_id']) == userId:
 					pos = position(str(message['sender_id']))
 					die = roll(lcr['Players'][pos]['chips'])
