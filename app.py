@@ -61,24 +61,24 @@ def webhook():
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
 			userId, name = turn()
-			if lcr['Over'] == 0:
-			    if str(message['sender_id']) == userId:
-			        pos = position(str(message['sender_id']))
-			        die = roll(lcr['Players'][pos]['chips'])
-			        message = die + '\n'
-			        ret = distribute(die, pos)
-			        score = scoreboard()
-			        message += score + '\n'
-			        #print(score)
-			        message += ret + '\n'
-			        reply(message)
-			        over = gameOver()
-			        if len(over) > 0:
-			            reply(over)
-			    else:
-			        reply('not your turn. ' + name + ' is up!')
+		    	if lcr['Over'] == 0:
+				if str(message['sender_id']) == userId:
+			    		pos = position(str(message['sender_id']))
+			        	die = roll(lcr['Players'][pos]['chips'])
+			        	message = die + '\n'
+			        	ret = distribute(die, pos)
+			        	score = scoreboard()
+			        	message += score + '\n'
+			        	#print(score)
+			        	message += ret + '\n'
+			        	reply(message)
+			        	over = gameOver()
+			        	if len(over) > 0:
+			            	reply(over)
+			    	else:
+			    		reply('not your turn. ' + name + ' is up!')
 		        else:
-			    reply('no current game active. please use new game command')
+				reply('no current game active. please use new game command')
         
 	if len(tagged) > 0:
 		if '13831863' in tagged:
@@ -211,6 +211,7 @@ def eightBall():
 
 def newGame(tagged):
     pos = 0
+    string = ''
     for i in range(len(tagged)):
         lcr['Players'][i] = {}
         lcr['Players'][i]['userId'] = tagged[i]
@@ -222,8 +223,8 @@ def newGame(tagged):
     lcr['Players'][0]['turn'] = 1
     lcr['Center'] = 0
     lcr['Over'] = 0
-    
-    return lcr
+    string = 'New game has been started with ' + str(len(tagged)) + ' people' + members[str(tagged[i])]['name'] + ' is up first!'
+    return string
 
 def roll(num):
     dice = ['-','-','-','Left','Center','Right']
