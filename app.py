@@ -28,12 +28,12 @@ for i in range(len(data['members'])):
 	members[data['members'][i]['user_id']] = {}
 	members[data['members'][i]['user_id']]['name'] = data['members'][i]['nickname'] 
 
-lcr = {
-    'Players': {   
-    },
-    'Center':0,
-    'Over':1   
-}
+# lcr = {
+#     'Players': {   
+#     },
+#     'Center':0,
+#     'Over':1   
+# }
 
 # Called whenever the app's callback URL receives a POST request
 # That'll happen every time a message is sent in the group
@@ -76,18 +76,18 @@ def webhook():
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
 			if lcr['Over'] == 0:
-				userId, name = turn()
+				userId, name = turn(lcr)
 				if str(message['sender_id']) == userId:
-					pos = position(str(message['sender_id']))
+					pos = position(lcr, str(message['sender_id']))
 					die = roll(lcr['Players'][pos]['chips'])
 					message = die + '\n'
-					ret = distribute(die, pos)
-					score = scoreboard()
+					lcr, ret = distribute(lcr, die, pos)
+					score = scoreboard(lcr)
 					message += score + '\n'
 					#print(score)
 					message += ret + '\n'
 					reply(message)
-					over = gameOver()
+					lcr, over = gameOver(lcr)
 					if len(over) > 0:
 						reply(over)
 				else:
@@ -233,6 +233,13 @@ def newGame(tagged):
 		members[data['members'][i]['user_id']] = {}
 		members[data['members'][i]['user_id']]['name'] = data['members'][i]['nickname'] 
 	pos = 0
+	lcr = {
+	    'Players': {   
+	    },
+	    'Center':0,
+	    'Over':1   
+	}
+
 	string = ''
 	for i in range(len(tagged)):
 		lcr['Players'][i] = {}
@@ -246,7 +253,7 @@ def newGame(tagged):
 	lcr['Center'] = 0
 	lcr['Over'] = 0
 	string = 'New game has been started with ' + str(len(tagged)) + ' people ' + members[str(tagged[0])]['name'] + ' is up first!'
-	return string
+	return lcr, string
 
 def roll(num):
     dice = ['-','-','-','Left','Center','Right']
@@ -257,7 +264,7 @@ def roll(num):
         die.append(random.choice(dice))
     return die
 
-def distribute(die, pos):
+def distribute(lcr, die, pos):
     message = ''
     for i in range(len(die)):
         if die[i] == 'Right':
@@ -285,9 +292,9 @@ def distribute(die, pos):
     
     
     lcr['Players'][pos]['turn'] = 0
-    nextUp = playerUp(lcr['Players'], pos)
+    nextUp = playerUp(lcr, lcr['Players'], pos)
     message += nextUp + ' is now up!'
-    return message
+    return lcr, message
 
 def starting_with(arr, start_index):
      # use xrange instead of range in python 2
@@ -296,7 +303,7 @@ def starting_with(arr, start_index):
     for i in range(start_index):
         yield arr[i]
 
-def playerUp(list, pos):
+def playerUp(lcr, list, pos):
     player = ''
     for value in starting_with(list, pos + 1):
         if player == '':
@@ -306,13 +313,13 @@ def playerUp(list, pos):
                 
     return player
 
-def scoreboard():
+def scoreboard(lcr):
     score = ''
     for i in range(len(lcr['Players'])):
         score += lcr['Players'][i]['name'] + ': ' + str(lcr['Players'][i]['chips']) + '\n'
     return score
 
-def gameOver():
+def gameOver(lcr):
     players = []
     for x in lcr['Players']:
         if lcr['Players'][x]['chips'] != 0:
@@ -323,15 +330,15 @@ def gameOver():
         message = 'Game Over. ' + str(players[0]) + ' has won the game!'
     else:
         message = ''
-    return message
+    return lcr, message
 
-def turn():
+def turn(lcr):
     for i in range(len(lcr['Players'])):
         if lcr['Players'][i]['turn'] == 1:
             
             return lcr['Players'][i]['userId'], lcr['Players'][i]['name']
 	
-def position(sender_id):
+def position(lcr, sender_id):
     pos = 0
     for i in range(len(lcr['Players'])):
         if sender_id == lcr['Players'][i]['userId']:
