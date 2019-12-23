@@ -64,11 +64,11 @@ def webhook():
 			if lcr['Over'] == 0:
 				if str(message['sender_id']) == userId:
 			    		pos = position(str(message['sender_id']))
-			        	die = roll(lcr['Players'][pos]['chips'])
-			        	message = die + '\n'
-			        	ret = distribute(die, pos)
-			        	score = scoreboard()
-			        	message += score + '\n'
+					die = roll(lcr['Players'][pos]['chips'])
+					message = die + '\n'
+					ret = distribute(die, pos)
+			 		score = scoreboard()
+					message += score + '\n'
 			        	#print(score)
 			        	message += ret + '\n'
 			        	reply(message)
