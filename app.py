@@ -61,7 +61,7 @@ def webhook():
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
 			userId, name = turn()
-		    	if lcr['Over'] == 0:
+			if lcr['Over'] == 0:
 				if str(message['sender_id']) == userId:
 			    		pos = position(str(message['sender_id']))
 			        	die = roll(lcr['Players'][pos]['chips'])
