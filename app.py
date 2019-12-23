@@ -246,7 +246,7 @@ def newGame(tagged):
 	lcr['Center'] = 0
 	lcr['Over'] = 0
 	string = 'New game has been started with ' + str(len(tagged)) + ' people ' + members[str(tagged[0])]['name'] + ' is up first!'
-    return string
+	return string
 
 def roll(num):
     dice = ['-','-','-','Left','Center','Right']
