@@ -242,7 +242,7 @@ def newGame(tagged):
     lcr['Players'][0]['turn'] = 1
     lcr['Center'] = 0
     lcr['Over'] = 0
-    string = 'New game has been started with ' + str(len(tagged)) + ' people' + members[str(tagged[i])]['name'] + ' is up first!'
+    string = 'New game has been started with ' + str(len(tagged)) + ' people' + members[str(tagged[0])]['name'] + ' is up first!'
     return string
 
 def roll(num):
