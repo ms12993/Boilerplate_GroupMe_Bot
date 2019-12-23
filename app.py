@@ -67,17 +67,17 @@ def webhook():
 			        die = roll(lcr['Players'][pos]['chips'])
 			        message = die + '\n'
 			        ret = distribute(die, pos)
-				score = scoreboard()
-				message += score + '\n'
-				#print(score)
-				message += ret + '\n'
-				reply(message)
-				over = gameOver()
-				if len(over) > 0:
-				    reply(over)
+			        score = scoreboard()
+			        message += score + '\n'
+			        #print(score)
+			        message += ret + '\n'
+			        reply(message)
+			        over = gameOver()
+			        if len(over) > 0:
+			            reply(over)
 			    else:
-				reply('not your turn. ' + name + ' is up!')
-			else:
+			        reply('not your turn. ' + name + ' is up!')
+		        else:
 			    reply('no current game active. please use new game command')
         
 	if len(tagged) > 0:
