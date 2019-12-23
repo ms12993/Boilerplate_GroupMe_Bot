@@ -79,6 +79,10 @@ def webhook():
 					reply('not your turn. ' + name + ' is up!')
 			else:
 				reply('no current game active. please use new game command')
+				
+		if 'lcr/new game' message['text'].lower() and not sender_is_bot(message):
+			message = newGame(tagged)
+			reply(message)
         
 	if len(tagged) > 0:
 		if '13831863' in tagged:
