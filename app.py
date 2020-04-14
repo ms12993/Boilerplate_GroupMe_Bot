@@ -91,7 +91,7 @@ def webhook():
 			eightBall()
 			
 		if 'help' in message['text'].lower() and not sender_is_bot(message):
-			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\nFor more functions, please venmo Matt-Sarver with request attached')
+			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\n!ogre WZ players:comma seperated players ; teams: number of teams\nFor more functions, please venmo Matt-Sarver with request attached')
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
 			lcr = json.loads(os.getenv('lcr'))
@@ -380,7 +380,7 @@ def Convert(string):
 
 def partition(list_in,n):
 	random.shuffle(list_in)
-	return [list_in[i::n] for iin range(n)]
+	return [list_in[i::n] for i in range(n)]
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
