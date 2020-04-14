@@ -43,7 +43,7 @@ def webhook():
 	message = request.get_json()
 	try:
 		tagged = message['attachments'][0]['user_ids']
-		tagged.append(message['sender_id'])
+		#tagged.append(message['sender_id'])
 	except:
 		tagged = []
 	#if 1+1 == 2 and not sender_is_bot(message):
