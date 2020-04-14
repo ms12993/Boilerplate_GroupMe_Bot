@@ -68,10 +68,10 @@ def webhook():
 					else:
 						mes += '\nTeam ' + str(idx) + ':\n' + ', '.join(team)
 					idx += 1
-				mes += '\nGood Luck, Have Fun! See you back in 3 games'
+				mes += '\nGL;HF! See you back in 3 games'
 				reply(mes)
 			except:
-				reply('please follow the correct format. use !ogre help for more info. \n Dumbass :)')
+				reply('please follow the correct format. use !ogre help for more info.\n Dumbass :)')
 
 		if 'groot' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
 			reply('I am Groot.')
@@ -91,7 +91,7 @@ def webhook():
 			eightBall()
 			
 		if 'help' in message['text'].lower() and not sender_is_bot(message):
-			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\n!ogre WZ players:comma seperated players ; teams: number of teams\nFor more functions, please venmo Matt-Sarver with request attached')
+			reply('Here is a list of my commands: \n!ogre coin - flips a coin\n!ogre weather: city - returns weather\n!ogre 8ball\n!ogre WZ: players:comma seperated players ; teams: number of teams\nFor more functions, please venmo Matt-Sarver with request attached')
 			
 		if 'lcr/roll' in message['text'].lower() and not sender_is_bot(message):
 			lcr = json.loads(os.getenv('lcr'))
