@@ -53,6 +53,11 @@ def webhook():
 		#reply('GET OUT ME SWAMP')
 	
 	if message['text'][:5] == '!ogre': 
+		
+		if 'WZ' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
+			people = [re.findall('layers:(.*?);',message['text'])[0].strip()]
+			nTeams = int(re.findall('eams:(.*?)$',message['text'])[0].strip())
+			reply(people)
 
 		if 'groot' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
 			reply('I am Groot.')
