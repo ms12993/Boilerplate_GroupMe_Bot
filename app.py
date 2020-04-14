@@ -54,13 +54,22 @@ def webhook():
 	
 	if message['text'][:5] == '!ogre': 
 		
-		if 'WZ' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
+		if 'wz' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
 			try:
 				people = re.findall('layers:(.*?);',message['text'])[0].strip()
 				people = Convert(people)
 				nTeams = int(re.findall('eams:(.*?)$',message['text'])[0].strip())
 				teams = partition(people,nTeams)
-				reply(teams)
+				mes = ''
+				idx = 1
+				for team in teams:
+					if idx == 1:
+						mes += 'Team ' + str(idx) + ':\n' + ', '.join(team)
+					else:
+						mes += '\nTeam ' + str(idx) + ':\n' + ', '.join(team)
+					idx += 1
+				mes += '\nGood Luck, Have Fun! See you back in 3 games'
+				reply(mes)
 			except:
 				reply('please follow the correct format. use !ogre help for more info. \n Dumbass :)')
 
