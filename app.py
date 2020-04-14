@@ -55,9 +55,14 @@ def webhook():
 	if message['text'][:5] == '!ogre': 
 		
 		if 'WZ' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
-			people = [re.findall('layers:(.*?);',message['text'])[0].strip()]
-			nTeams = int(re.findall('eams:(.*?)$',message['text'])[0].strip())
-			reply(people)
+			try:
+				people = re.findall('layers:(.*?);',message['text'])[0].strip()
+				people = Convert(people)
+				nTeams = int(re.findall('eams:(.*?)$',message['text'])[0].strip())
+				teams = partition(people,nTeams)
+				reply(teams)
+			except:
+				reply('please follow the correct format. use !ogre help for more info. \n Dumbass :)')
 
 		if 'groot' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
 			reply('I am Groot.')
@@ -360,7 +365,13 @@ def position(lcr, sender_id):
             pos = i
     return pos
 
+def Convert(string):
+	li = list(string.split(","))
+	return li
 
+def partition(list_in,n):
+	random.shuffle(list_in)
+	return [list_in[i::n] for iin range(n)]
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
