@@ -67,7 +67,7 @@ def webhook():
 			reply('haaaaaaaan')
 		if sdt == '18:38':
 			reply('haaaaaaaan.....EST')
-		if sdt != '17:38' or sdt != '18:38':
+		if sdt != '17:38' and sdt != '18:38':
 			reply('Nice try you fucking dumbass')
 	
 	if message['text'][:5] == '!ogre': 
