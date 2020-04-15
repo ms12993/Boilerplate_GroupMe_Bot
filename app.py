@@ -10,6 +10,7 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 import re
 import random
+import datetime
 
 app = Flask(__name__)
 bot_id = os.getenv('GROUPME_BOT_ID')
@@ -50,10 +51,24 @@ def webhook():
 		#reply(message)
 		
 	if '538' in message['text'].lower() and not sender_is_bot(message):
-		reply('haaaaaaaan')
+		dt = datetime.datetime.now(tz=EST5EDT())
+		sdt = dt.strftime('%H:%M')
+		if sdt == '17:38':
+			reply('haaaaaaaan')
+		if sdt == '18:38':
+			reply('haaaaaaaan.....EST')
+		if sdt != '17:38' or sdt != '18:38':
+			reply('Nice try you fucking dumbass')
 		
 	if '5:38' in message['text'].lower() and not sender_is_bot(message):
-		reply('haaaaaaaan')
+		dt = datetime.datetime.now(tz=EST5EDT())
+		sdt = dt.strftime('%H:%M')
+		if sdt == '17:38':
+			reply('haaaaaaaan')
+		if sdt == '18:38':
+			reply('haaaaaaaan.....EST')
+		if sdt != '17:38' or sdt != '18:38':
+			reply('Nice try you fucking dumbass')
 	
 	if message['text'][:5] == '!ogre': 
 		
@@ -385,6 +400,25 @@ def Convert(string):
 def partition(list_in,n):
 	random.shuffle(list_in)
 	return [list_in[i::n] for i in range(n)]
+
+class EST5EDT(datetime.tzinfo):
+
+    def utcoffset(self, dt):
+        return datetime.timedelta(hours=-5) + self.dst(dt)
+
+    def dst(self, dt):
+        d = datetime.datetime(dt.year, 3, 8)        #2nd Sunday in March
+        self.dston = d + datetime.timedelta(days=6-d.weekday())
+        d = datetime.datetime(dt.year, 11, 1)       #1st Sunday in Nov
+        self.dstoff = d + datetime.timedelta(days=6-d.weekday())
+        if self.dston <= dt.replace(tzinfo=None) < self.dstoff:
+            return datetime.timedelta(hours=1)
+        else:
+            return datetime.timedelta(0)
+
+    def tzname(self, dt):
+        return 'EST5EDT'
+
 
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
