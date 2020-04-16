@@ -54,10 +54,10 @@ def webhook():
 		dt = datetime.datetime.now(tz=EST5EDT())
 		sdt = dt.strftime('%H:%M')
 		if sdt == '17:38':
-			reply('haaaaaaaan')
+			reply_with_image('haaaaaaaan','https://pbs.twimg.com/media/EPVoFdKU4AEC81T?format=jpg&name=900x900')
 		if sdt == '18:38':
-			reply('haaaaaaaan.....EST')
-		if sdt != '17:38' or sdt != '18:38':
+			reply_with_image('haaaaaaaan.....EST','https://media1.tenor.com/images/3fe96a69631247edb45def300b11d060/tenor.gif?itemid=10938706')
+		if sdt != '17:38' and sdt != '18:38':
 			reply('Nice try you fucking dumbass')
 		
 	if '5:38' in message['text'].lower() and not sender_is_bot(message):
