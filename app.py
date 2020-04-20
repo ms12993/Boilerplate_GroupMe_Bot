@@ -115,7 +115,7 @@ def webhook():
 			try:
 				searchTerm = re.findall('gif:(.*?)$',message['text'])[0].strip()
 				searchTerm = str(searchTerm)
-				url = random_gif(searchTerm)
+				url = random_gif(searchTerm,random=False)
 				reply_with_image(searchTerm,url)
 			except:
 				reply('please follow the correct format. use !ogre help for more info.\n Dumbass :)')
@@ -485,7 +485,7 @@ adjectives = ['married',
  'flawless']
 
 def random_gif(searchTerm='',random=True):
-	if random=True:
+	if random==True:
 		search = random.choice(adjectives)
 	else:
 		search = searchTerm
