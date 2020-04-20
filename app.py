@@ -87,7 +87,7 @@ def webhook():
 			reply('I am Groot.')
 			
 		if 'poker' in message['text'].lower() and not sender_is_bot(message):
-			pokerMes = '7pm - 4/20\nMeeting ID: 974-6496-7510\nPassword: 538538\nBuy in/Buy Back: $20'
+			pokerMes = '7pm - 4/20\nMeeting ID: 974-6496-7510\nPassword: 538538\nBuy in/Buy Back: $20\nJust log into the fucking zoom call :))))'
 			reply(pokerMes)
 
 		if 'weather' in message['text'].lower() and not sender_is_bot(message):
