@@ -68,7 +68,9 @@ def webhook():
 		if sdt == '18:38':
 			reply_with_image('haaaaaaaan.....EST','https://media1.tenor.com/images/3fe96a69631247edb45def300b11d060/tenor.gif?itemid=10938706')
 		if sdt != '17:38' and sdt != '18:38':
+			url = random_gif()
 			reply('Nice try you fucking dumbass')
+			reply_with_image('hhhhannnn',url)
 	
 	if message['text'][:5] == '!ogre': 
 		
@@ -423,7 +425,74 @@ class EST5EDT(datetime.tzinfo):
     def tzname(self, dt):
         return 'EST5EDT'
 
+adjectives = ['married',
+ 'needless',
+ 'lively',
+ 'jealous',
+ 'impartial',
+ 'creepy',
+ 'macho',
+ 'ordinary',
+ 'gamy',
+ 'weak',
+ 'lovely',
+ 'grey',
+ 'delightful',
+ 'accidental',
+ 'rampant',
+ 'finicky',
+ 'garrulous',
+ 'feeble',
+ 'chemical',
+ 'fretful',
+ 'tiny',
+ 'adamant',
+ 'trite',
+ 'momentous',
+ 'complex',
+ 'handy',
+ 'ripe',
+ 'embarrassed',
+ 'earthy',
+ 'mighty',
+ 'lean',
+ 'rustic',
+ 'equal',
+ 'naughty',
+ 'exclusive',
+ 'lyrical',
+ 'knotty',
+ 'disturbed',
+ 'nimble',
+ 'learned',
+ 'repulsive',
+ 'famous',
+ 'vivacious',
+ 'loutish',
+ 'overconfident',
+ 'ruthless',
+ 'naive',
+ 'ugly',
+ 'bustling',
+ 'flawless']
 
+def random_gif():
+	search = random.choice(adjectives)
+	url = 'https://api.giphy.com/v1/gifs/search?'
+	api_key = 'SdSVKWszL9vaAPOh6O98uiSgxoNFm9yL'
+	url += '&api_key=' + api_key
+	query = search.replace(' ','+')
+	url += '&q=' + query
+	limit = 5
+	url += '&limit=' + str(limit)
+
+	response = requests.get(url)
+	data = json.loads(response.text)
+	data = data['data']
+	num = random.randint(0,4)
+	url = data[num]['images']['downsized_large']['url']
+	
+	return url
 # Checks whether the message sender is a bot
 def sender_is_bot(message):
 	return message['sender_type'] == "bot"
