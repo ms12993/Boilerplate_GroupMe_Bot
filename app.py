@@ -69,7 +69,7 @@ def webhook():
 			reply_with_image('haaaaaaaan.....EST','https://media1.tenor.com/images/3fe96a69631247edb45def300b11d060/tenor.gif?itemid=10938706')
 		if sdt != '17:38' and sdt != '18:38':
 			url = random_gif()
-			reply('Nice try you fucking dumbass')
+			#reply('Nice try you fucking dumbass')
 			reply_with_image('hhhhannnn',url)
 	
 	if message['text'][:5] == '!ogre': 
