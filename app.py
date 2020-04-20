@@ -68,7 +68,7 @@ def webhook():
 		if sdt == '18:38':
 			reply_with_image('haaaaaaaan.....EST','https://media1.tenor.com/images/3fe96a69631247edb45def300b11d060/tenor.gif?itemid=10938706')
 		if sdt != '17:38' and sdt != '18:38':
-			url = random_gif()
+			url = random_gif('')
 			#reply('Nice try you fucking dumbass')
 			reply_with_image('hhhhannnn',url)
 	
@@ -111,6 +111,14 @@ def webhook():
 		if 'coin' in message['text'].lower() and not sender_is_bot(message):
 			coin()
 	
+		if 'gif' in message['text'].lower() and not sender_is_bot(message):
+			try:
+				searchTerm = re.findall('gif:(.*?)$',message['text'])[0].strip()
+				searchTerm = str(searchTerm)
+				url = random_gif(searchTerm)
+				reply_with_image(searchTerm,url)
+			except:
+				reply('please follow the correct format. use !ogre help for more info.\n Dumbass :)')
 		if '8ball' in message['text'].lower() and not sender_is_bot(message):
 			eightBall()
 			
@@ -476,8 +484,11 @@ adjectives = ['married',
  'bustling',
  'flawless']
 
-def random_gif():
-	search = random.choice(adjectives)
+def random_gif(searchTerm='',random=True):
+	if random=True:
+		search = random.choice(adjectives)
+	else:
+		search = searchTerm
 	url = 'https://api.giphy.com/v1/gifs/search?'
 	api_key = 'SdSVKWszL9vaAPOh6O98uiSgxoNFm9yL'
 	url += '&api_key=' + api_key
