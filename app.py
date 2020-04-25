@@ -61,6 +61,9 @@ def webhook():
 			reply_with_image('haaaaaaaan.....EST',url)
 		if sdt != '17:38' and sdt != '18:38':
 			reply('Nice try you fucking dumbass')
+		
+		if sdt == '5:38' or sdt == '6:38':
+			reply('go back to fucking bed')
 	
 	if message['text'][:5] == '!ogre': 
 		
