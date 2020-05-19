@@ -145,8 +145,8 @@ def webhook():
 			reply(message)
         
 	if len(tagged) > 0:
-		if '13831863' in tagged:
-			reply('Thanks for reaching out to Steve. Please expect a reply in 12-72 hours')
+		if '12377981' in tagged: # steve- 13831863
+			reply('Thanks for reaching out to Seany. Please expect a reply in 12-72 hours')
 	if message['system'] == True:
 		if 'added' in message['text'].lower():
 			name = re.findall('added (.*?) to the',message['text'])[0].strip()
