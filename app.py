@@ -62,7 +62,7 @@ def webhook():
 		if sdt != '17:38' and sdt != '18:38':
 			reply('Nice try you fucking dumbass')
 		
-		if sdt == '5:38' or sdt == '6:38':
+		if sdt == '05:38' or sdt == '06:38':
 			reply('go back to fucking bed')
 	
 	if message['text'][:5] == '!ogre': 
@@ -145,8 +145,8 @@ def webhook():
 			reply(message)
         
 	if len(tagged) > 0:
-		if '12377981' in tagged: # steve- 13831863
-			reply('Thanks for reaching out to Seany. Please expect a reply in 12-72 hours')
+		if '13831863' in tagged: # steve- 13831863 sean- 12377981
+			reply('Thanks for reaching out to Stephanie. Please expect a reply in 12-72 hours (maybe).')
 	if message['system'] == True:
 		if 'added' in message['text'].lower():
 			name = re.findall('added (.*?) to the',message['text'])[0].strip()
@@ -426,56 +426,56 @@ class EST5EDT(datetime.tzinfo):
     def tzname(self, dt):
         return 'EST5EDT'
 
-adjectives = ['married',
- 'needless',
+adjectives = ['cupid shuffle',
+ 'drunk',
  'lively',
- 'jealous',
- 'impartial',
+ 'creep',
+ 'sexy',
  'creepy',
  'macho',
- 'ordinary',
- 'gamy',
+ 'pizza',
+ 'doggo',
  'weak',
- 'lovely',
+ '50 shades',
  'grey',
- 'delightful',
+ 'tease',
  'accidental',
  'rampant',
- 'finicky',
- 'garrulous',
- 'feeble',
- 'chemical',
- 'fretful',
- 'tiny',
- 'adamant',
- 'trite',
- 'momentous',
- 'complex',
+ 'souja boy',
+ 'lil wayne',
+ 'chance the rapper',
+ 'k',
+ 'line dance',
+ 'cocaine',
+ 'meth',
+ 'heroin',
+ 'marijuana',
+ 'weed',
  'handy',
  'ripe',
  'embarrassed',
- 'earthy',
- 'mighty',
- 'lean',
- 'rustic',
- 'equal',
+ 'alcohol',
+ 'party',
+ 'watch me whip',
+ 'boobs',
+ 'fortnite',
  'naughty',
  'exclusive',
  'lyrical',
- 'knotty',
+ 'sesame street',
  'disturbed',
- 'nimble',
- 'learned',
+ 'gangster',
+ 'bobby shmruda',
  'repulsive',
- 'famous',
- 'vivacious',
- 'loutish',
- 'overconfident',
+ 'chief keef',
+ 'lean',
+ 'dance',
+ 'sex',
  'ruthless',
- 'naive',
+ 'cupid shuffle',
  'ugly',
- 'bustling',
- 'flawless']
+ 'drunk dance',
+ 'rave']
 
 def random_gif(searchTerm='',rand=True):
 	if rand==True:
@@ -487,13 +487,13 @@ def random_gif(searchTerm='',rand=True):
 	url += '&api_key=' + api_key
 	query = search.replace(' ','+')
 	url += '&q=' + query
-	limit = 5
+	limit = 10
 	url += '&limit=' + str(limit)
 
 	response = requests.get(url)
 	data = json.loads(response.text)
 	data = data['data']
-	num = random.randint(0,4)
+	num = random.randint(0,9)
 	url = data[num]['images']['downsized_large']['url']
 	
 	return url
