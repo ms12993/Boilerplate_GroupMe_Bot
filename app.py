@@ -214,7 +214,7 @@ def upload_image_to_groupme(imgURL):
 	
 def get_leaders():
     response = requests.get('https://www.espn.com/golf/leaderboard')
-    df = pd.read_html(response.text)[0].head()
+    df = pd.read_html(response.text)[0].head()[['PLAYER','TO PAR']]
     
     return df.to_string()
 
