@@ -3,4 +3,3 @@ gunicorn==19.6.0
 requests==2.21.0
 pandas
 lxml
-json
