@@ -80,6 +80,11 @@ def webhook():
 			except:
 				reply('cannot find player')
 				
+		if 'hole' in message['text'].lower():
+			holeNum = int(re.findall('hole:(.*?)$',message['text'])[0].strip())
+			hole = get_course(holeNum)
+			reply(hole)
+				
 	if message['text'][:5] == '!ogre': 
 		
 		if 'wz' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
@@ -234,6 +239,16 @@ def get_player_pos(player):
     player, thru, score = df.iloc[0]['PLAYER'], df.iloc[0]['THRU'], df.iloc[0]['TO PAR']
 	
     return f'{player} is {score} through {thru}'
+
+def get_course(holeNum):
+    response = requests.get('https://statdata.pgatour.com/r/014/coursestat.json')
+    data = json.loads(response.text)
+    hole = data['courses'][0]['holes'][holeNum-1]
+    score = hole['stats'][0]['eV2']
+    par = hole['par']
+    yards = hole['yards']
+    
+    return f'hole {holeNum} is a par {par}, {yards} yards. The average score is {score}'
 
 	
 def getWeather(city):
