@@ -72,7 +72,7 @@ def webhook():
 			reply(table)
 		if 'player' in message['text'].lower():
 			try:
-				player = int(re.findall('player:(.*?)$',message['text'])[0].strip())
+				player = re.findall('player:(.*?)$',message['text'])[0].strip()
 				player_pos = get_player_pos(player)
 				reply(player_pos)
 			except:
