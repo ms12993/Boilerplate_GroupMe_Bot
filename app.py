@@ -81,6 +81,9 @@ def webhook():
 				reply('cannot find player')
 				
 		if 'hole' in message['text'].lower():
+			if 'red' in message['text'].lower():
+				reply('gaping wide, average score 1.3')
+				
 			holeNum = int(re.findall('hole:(.*?)$',message['text'])[0].strip())
 			hole = get_course(holeNum)
 			reply(hole)
