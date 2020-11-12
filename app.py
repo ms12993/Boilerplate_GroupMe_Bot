@@ -70,6 +70,8 @@ def webhook():
 			try:
 				table = get_leaders()
 				reply(table)
+			except:
+				1+1
 	
 	if message['text'][:5] == '!ogre': 
 		
