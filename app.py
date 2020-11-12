@@ -71,6 +71,8 @@ def webhook():
 			table = get_leaders()
 			reply(table)
 		if 'player' in message['text'].lower():
+			if 'decham' in message['text'].lower():
+				reply('Im a douche.')
 			try:
 				player = re.findall('player:(.*?)$',message['text'])[0].strip()
 				player_pos = get_player_pos(player)
