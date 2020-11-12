@@ -67,12 +67,9 @@ def webhook():
 			
 	if message['text'][:8] == '!masters': 
 		if 'leaderboard' in message['text'].lower():
-			try:
-				table = get_leaders()
-				reply(table)
-			except:
-				1+1
-	
+			table = get_leaders()
+			reply(table)
+
 	if message['text'][:5] == '!ogre': 
 		
 		if 'wz' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
