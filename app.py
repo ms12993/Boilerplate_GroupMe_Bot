@@ -59,11 +59,17 @@ def webhook():
 		if sdt == '18:38':
 			url = random_gif('')
 			reply_with_image('haaaaaaaan.....EST',url)
-		if sdt != '17:38' and sdt != '18:38':
+		if sdt != '17:38' and sdt != '18:38' and std! '05:38':
 			reply('Nice try you fucking dumbass')
 		
 		if sdt == '05:38' or sdt == '06:38':
 			reply('go back to fucking bed')
+			
+	if message['text'][:8] == '!masters': 
+		if 'leaderboard' in message['text'].lower():
+			try:
+				table = get_leaders()
+				reply(table)
 	
 	if message['text'][:5] == '!ogre': 
 		
@@ -204,6 +210,13 @@ def upload_image_to_groupme(imgURL):
 		imageurl = r.json()['payload']['url']
 		os.remove(filename)
 		return imageurl
+	
+	
+def get_leaders():
+    response = requests.get('https://www.espn.com/golf/leaderboard')
+    df = pd.read_html(response.text)[0].head()
+    
+    return df.to_string()
 
 	
 def getWeather(city):
