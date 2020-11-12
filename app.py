@@ -70,7 +70,14 @@ def webhook():
 		if 'leaderboard' in message['text'].lower():
 			table = get_leaders()
 			reply(table)
-
+		if 'player' in message['text'].lower():
+			try:
+				player = int(re.findall('player:(.*?)$',message['text'])[0].strip())
+				player_pos = get_player_pos(player)
+				reply(player_pos)
+			except:
+				reply('cannot find player')
+				
 	if message['text'][:5] == '!ogre': 
 		
 		if 'wz' in message['text'].lower() and not sender_is_bot(message): # if message contains 'groot', ignoring case, and sender is not a bot...
@@ -217,6 +224,14 @@ def get_leaders():
     df = pd.read_html(response.text)[0].head()[['PLAYER','TO PAR']]
     
     return df.to_string()
+
+def get_player_pos(player):
+    response = requests.get('https://www.espn.com/golf/leaderboard')
+    df = pd.read_html(response.text)[0]
+    df = df[df['PLAYER'].str.lower().str.contains(player,na=False)]
+    player, thru, score = df.iloc[0]['PLAYER'], df.iloc[0]['THRU'], df.iloc[0]['TO PAR']
+	
+    return f'{player} is {score} through {thru}'
 
 	
 def getWeather(city):
