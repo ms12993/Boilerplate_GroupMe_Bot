@@ -75,7 +75,7 @@ def webhook():
 				reply('Im a douche.')
 			try:
 				player = re.findall('player:(.*?)$',message['text'])[0].strip()
-				player_pos = get_player_pos(player)
+				player_pos = get_player_pos(player.lower())
 				reply(player_pos)
 			except:
 				reply('cannot find player')
