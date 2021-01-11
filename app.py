@@ -53,20 +53,20 @@ def webhook():
 		#reply(message)
 	
 	time_538 = time.strftime('%H:%M', time.localtime(message['created_at']))
-	print(time_538)
+	#print(time_538)
 	if '5:38' in message['text'].lower() and not sender_is_bot(message) or '538' in message['text'].lower() and not sender_is_bot(message):
 		dt = datetime.datetime.now(tz=EST5EDT())
 		sdt = dt.strftime('%H:%M')
-		if sdt == '17:38':
+		if time_538 == '17:38':
 			url = random_gif('')
 			reply_with_image('haaaaaaaan',url)
-		if sdt == '18:38':
+		if time_538 == '18:38':
 			url = random_gif('')
 			reply_with_image('haaaaaaaan.....EST',url)
-		if sdt != '17:38' and sdt != '18:38' and sdt != '05:38':
+		if time_538 != '17:38' and time_538 != '18:38' and time_538 != '05:38':
 			reply('Nice try you fucking dumbass')
 		
-		if sdt == '05:38' or sdt == '06:38':
+		if time_538 == '05:38' or time_538 == '06:38':
 			reply('go back to fucking bed')
 			
 	if message['text'][:8] == '!masters': 
