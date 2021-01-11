@@ -12,6 +12,7 @@ import re
 import pandas as pd
 import random
 import datetime
+import time
 
 app = Flask(__name__)
 bot_id = os.getenv('GROUPME_BOT_ID')
@@ -50,7 +51,9 @@ def webhook():
 		tagged = []
 	#if 1+1 == 2 and not sender_is_bot(message):
 		#reply(message)
-		
+	
+	time_538 = time.strftime('%H:%M', time.localtime(message['created_at']))
+	print(time_538)
 	if '5:38' in message['text'].lower() and not sender_is_bot(message) or '538' in message['text'].lower() and not sender_is_bot(message):
 		dt = datetime.datetime.now(tz=EST5EDT())
 		sdt = dt.strftime('%H:%M')
