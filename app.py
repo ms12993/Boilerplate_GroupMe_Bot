@@ -53,7 +53,7 @@ def webhook():
 		#reply(message)
 	
 	time_538 = time.strftime('%H:%M', time.localtime(message['created_at']))
-	#print(time_538)
+	print(time_538)
 	if '5:38' in message['text'].lower() and not sender_is_bot(message) or '538' in message['text'].lower() and not sender_is_bot(message):
 		dt = datetime.datetime.now(tz=EST5EDT())
 		sdt = dt.strftime('%H:%M')
