@@ -170,9 +170,9 @@ def webhook():
 			lcr, message = newGame(tagged)
 			reply(message)
         
-	if len(tagged) > 0:
-		if '13831863' in tagged: # steve- 13831863 sean- 12377981
-			reply('Thanks for reaching out to Stephanie. Please expect a reply in 12-72 hours (maybe).')
+	#if len(tagged) > 0:
+		#if '13831863' in tagged: # steve- 13831863 sean- 12377981
+			#reply('Thanks for reaching out to Stephanie. Please expect a reply in 12-72 hours (maybe).')
 	if message['system'] == True:
 		if 'added' in message['text'].lower():
 			name = re.findall('added (.*?) to the',message['text'])[0].strip()
